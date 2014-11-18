@@ -3,14 +3,15 @@ package command
 import data.Buffer
 import data.Clipboard
 
-class CutCommand extends Command
+class Cut(buffer: Buffer, clipboard: Clipboard, beginPosition: Integer, endPosition: Integer) extends Command
 {
 
-  def execute(buffer: Buffer, clipboard: Clipboard, position: Integer)
+  override def execute
   {
-    //Stock the buffer in the clipboard
-    clipboard.setContent(buffer)
-    clipboard.clear
+    //Stock the selected part of the buffer in the clipboard
+    clipboard.setContent((buffer.getText).substring(beginPosition, endPosition))
+    //The buffer become a new buffer without the selection which we have cut
+    buffer.setText((buffer.getText).substring(beginPosition, endPosition))
   }
   
 }

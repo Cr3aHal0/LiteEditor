@@ -2,11 +2,11 @@ package data
 
 class Clipboard {
 
-  var content : String = ""
+  private var content : String = ""
   
-  def setContent(b : Buffer)
+  def setContent(string: String)
   {
-    content = b.text
+    content = string
   }
   
   def getContent = content

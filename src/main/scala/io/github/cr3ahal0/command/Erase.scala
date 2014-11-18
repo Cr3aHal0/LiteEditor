@@ -3,10 +3,10 @@ import data.Buffer
 import data.Clipboard
 
 
-class EraseCommand extends Command
+class Erase(buffer: Buffer, position: Integer) extends Command
 {
-   def execute(buffer: Buffer, clipboard: Clipboard, position: Integer)
+   override def execute
    {
-    
+    buffer.removePreviousChar(position);
   }
 }

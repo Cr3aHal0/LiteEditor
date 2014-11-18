@@ -3,12 +3,13 @@ import data.Buffer
 import data.Clipboard
 
 
-class RedoCommand extends Command
+class Redo(buffer: Buffer) extends Command
 {
-   def execute(buffer: Buffer, clipboard: Clipboard, position: Integer)
-   {
-    //Retourne le buffer a l'instant t+1
-  }
-  
-    
+	//Change the buffer to the next element of the position in the list of bufferHistory
+	override def execute
+	{
+		//buffer = bufferHistory.getnextBufferState
+	}
+
+
 }

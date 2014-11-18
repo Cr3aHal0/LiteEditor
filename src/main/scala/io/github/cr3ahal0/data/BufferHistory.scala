@@ -1,19 +1,31 @@
 package data
+import java.util.ArrayList;
 
 
 object BufferHistory 
 {
 
-  var listBuffer : List[Buffer] = List()
+  private var listBufferState : ArrayList[Buffer] = new ArrayList
   
   //Add an element to the begin of the list
   def addBuffer(b: Buffer)
   {
-    listBuffer::List(b)
+    listBufferState.add(b)
   } 
    
   //
   def clearBuffer()
+  {
+    
+  }
+  
+  def getLastBufferState()
+  {
+    
+  }
+  
+  
+  def getNextBufferState()
   {
     
   }

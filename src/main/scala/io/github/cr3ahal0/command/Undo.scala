@@ -3,11 +3,11 @@ import data.Buffer
 import data.Clipboard
 
 
-class UndoCommand extends Command
+class Undo(buffer: Buffer) extends Command
 {
 
-	def execute(buffer: Buffer, clipboard: Clipboard, position: Integer)
-	{
+	override def execute
+  {
 		//Retourne le buffer a l'instant t-1
 	}
 }
