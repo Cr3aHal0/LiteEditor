@@ -1,5 +1,7 @@
 package data
 
+import command.Copy;
+
 class Buffer {
 	
   private var text : String = ""
@@ -13,6 +15,7 @@ class Buffer {
   
   def getText = text
   def getCursorPosition = cursorPosition
+  def getLength = text.length()
   
   def setText(text: String){
     this.text = text
@@ -22,9 +25,9 @@ class Buffer {
     this.cursorPosition = position
   }
   
-  def write(char : Char)
+  def write(string : String)
   {
-    text += char
+    text += string
   }
   
   //Add a string to the buffer at a position
