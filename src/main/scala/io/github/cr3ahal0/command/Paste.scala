@@ -9,7 +9,17 @@ class Paste(buffer: Buffer, clipboard: Clipboard, position: Integer) extends Com
   
   override def execute
   {
-    //Add the content of the clipboard to the cursor position in the text buffer
-    buffer.addStringAt(clipboard.getContent, position)
+    if(clipboard.getContent != "")
+    {
+      //Add the content of the clipboard to the cursor position in the text buffer
+      buffer.addStringAt(clipboard.getContent, position)
+      println("New buffer : "+buffer.getText)
+      
+    }else
+    {
+      println("Clipboard is empty")
+    }  
+    
+    
   }
 }

@@ -9,6 +9,7 @@ class Copy(buffer: Buffer, clipboard: Clipboard, beginPosition: Integer, endPosi
 	{
 		//Add the selection of the buffer to the clipboard
 		clipboard.setContent((buffer.getText).substring(beginPosition, endPosition))
+    println("Content of clipboard : "+clipboard.getContent)
 	}
 
 
