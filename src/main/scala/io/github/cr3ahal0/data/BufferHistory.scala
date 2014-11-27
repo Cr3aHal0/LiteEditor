@@ -1,21 +1,21 @@
 package data
 import java.util.ArrayList;
 
-
 object BufferHistory 
 {
 
   private var listBufferState : ArrayList[String] = new ArrayList
   private var currentIndex : Integer = 0;
   
-  //Add an element to the begin of the list
+  
+  //Add an element to the beginning of the list
   def addBuffer(b: Buffer)
   {
     listBufferState.add(b.getText)
     currentIndex = currentIndex + 1
   } 
   
-  def getPreviousState(buffer : Buffer) {
+  def getPreviousState(buffer : Buffer){
     if (currentIndex > 0) {
       buffer.setText(listBufferState.get(currentIndex - 1))
       currentIndex = currentIndex - 1

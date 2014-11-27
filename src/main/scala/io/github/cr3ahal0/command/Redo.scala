@@ -8,7 +8,7 @@ class Redo(buffer: Buffer) extends Command
 	//Change the buffer to the next element of the position in the list of bufferHistory
 	override def execute
 	{
-		//buffer = bufferHistory.getnextBufferState
+		//buffer = BufferHistory.getnextBufferState
 	}
 
 

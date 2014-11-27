@@ -1,11 +1,10 @@
 package data
 
-import command.Copy;
-
 class Buffer {
 	
   private var text : String = ""
   private var cursorPosition : Int = 0
+  private var history = BufferHistory
   
   def Buffer(text: String, cursorPosition: Int){
     this.text = text
@@ -28,12 +27,14 @@ class Buffer {
   def write(string : String)
   {
     text += string
+    BufferHistory.addBuffer(this)
   }
   
   //Add a string to the buffer at a position
   def addStringAt(string: String, cursorPosition: Int)
   {
     text = text.substring(0, cursorPosition)+string+text.substring(cursorPosition, text.length());
+    BufferHistory.addBuffer(this)
   }
   
   
@@ -41,14 +42,11 @@ class Buffer {
   def addCharAt(char: Char, cursorPosition: Int)
   {
     text = text.substring(0, cursorPosition)+char+text.substring(cursorPosition, text.length());
+    BufferHistory.addBuffer(this)
   }
   
-  //Remove the character previous the cursor position
-  def removePreviousChar(cursorPosition: Int)
-  {
-    text = text.substring(0, cursorPosition)+text.substring(cursorPosition+1, text.length())
-  }
   
 
   
 }
+

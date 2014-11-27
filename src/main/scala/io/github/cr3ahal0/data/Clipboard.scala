@@ -1,8 +1,9 @@
 package data
 
-class Clipboard {
+object Clipboard {
 
   private var content : String = ""
+  
   
   def setContent(string: String)
   {
@@ -13,4 +14,12 @@ class Clipboard {
   
   def clear = content = ""
   
+  
+  def isEmpty : Boolean = {
+    return (content == "")
+    
+  }
+  
 }
+
+

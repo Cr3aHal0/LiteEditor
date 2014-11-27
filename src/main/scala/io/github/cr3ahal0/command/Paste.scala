@@ -2,17 +2,17 @@ package command
 import data.Buffer
 import data.Clipboard
 
-class Paste(buffer: Buffer, clipboard: Clipboard, position: Integer) extends Command
+class Paste(buffer: Buffer, position: Integer) extends Command
 {
   
   
   
   override def execute
   {
-    if(clipboard.getContent != "")
+    if(!Clipboard.isEmpty)
     {
       //Add the content of the clipboard to the cursor position in the text buffer
-      buffer.addStringAt(clipboard.getContent, position)
+      buffer.addStringAt(Clipboard.getContent, position)
       println("New buffer : "+buffer.getText)
       
     }else
