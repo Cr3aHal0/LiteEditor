@@ -2,7 +2,7 @@ package command
 import data.Buffer
 import data.Clipboard
 
-class Paste(buffer: Buffer, position: Integer) extends Command
+class Paste(buffer: Buffer) extends Command
 {
   
   
@@ -12,7 +12,7 @@ class Paste(buffer: Buffer, position: Integer) extends Command
     if(!Clipboard.isEmpty)
     {
       //Add the content of the clipboard to the cursor position in the text buffer
-      buffer.addStringAt(Clipboard.getContent, position)
+      buffer.addStringAt(Clipboard.getContent, buffer.getCursorPosition)
       println("New buffer : "+buffer.getText)
       
     }else

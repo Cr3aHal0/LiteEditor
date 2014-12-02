@@ -4,7 +4,7 @@ import data.BufferHistory
 import data.Clipboard
 
 
-class Erase(buffer: Buffer, position: Integer) extends Command
+class Erase(buffer: Buffer) extends Command
 {
 	override def execute
 	{
