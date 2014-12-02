@@ -4,30 +4,30 @@ class Buffer {
 	
   private var text : String = ""
   private var cursorPosition : Int = 0
-  private var history = BufferHistory
+  private val history = BufferHistory
+  private val cursor = new Cursor(0)
   
-  def Buffer(text: String, cursorPosition: Int){
-    this.text = text
-    this.cursorPosition = cursorPosition
-  }
+  
   
   
   def getText = text
-  def getCursorPosition = cursorPosition
   def getLength = text.length()
+  def getCursorPosition = cursor.getPosition
+  def getHistory = history
   
   def setText(text: String){
     this.text = text
   }
-  
-  def setCursorPosition(position: Int){
-    this.cursorPosition = position
+
+  def setCursorPosition(position : Int)
+  {
+    cursor.setPosition(position)
   }
   
-  def write(string : String)
+  def addString(string: String) 
   {
-    text += string
-    BufferHistory.addBuffer(this)
+    text = text.substring(0, cursor.getPosition)+string+text.substring(cursor.getPosition, text.length());
+    cursor.movePosition(string.length());
   }
   
   //Add a string to the buffer at a position
@@ -46,7 +46,17 @@ class Buffer {
   }
   
   
-
+  def getPreviousState : Buffer =
+  {
+    history.getPreviousState(this)
+    return this
+  }
+  
+  def getNextState : Buffer =
+  {
+    history.getNextState(this)
+    return this
+  }
   
 }
 
