@@ -15,14 +15,14 @@ object BufferHistory
     currentIndex = currentIndex + 1
   } 
   
-  def getPreviousState(buffer : Buffer){
+  def getPreviousState(buffer : Buffer) {
     if (currentIndex > 0) {
       buffer.setText(listBufferState.get(currentIndex - 1))
       currentIndex = currentIndex - 1
     }
   }
   
-  def getNextState(buffer : Buffer) {
+  def getNextState(buffer : Buffer){
     if (currentIndex < listBufferState.size() - 1) {
       buffer.setText(listBufferState.get(currentIndex + 1))
       currentIndex = currentIndex + 1
