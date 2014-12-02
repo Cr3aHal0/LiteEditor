@@ -10,7 +10,7 @@ class Undo(buffer: Buffer) extends Command
 
 	override def execute
   {
-    //buffer = BufferHistory.getPreviousState
+    buffer.getPreviousState
 		//Retourne le buffer a l'instant t-1
 	}
 }
