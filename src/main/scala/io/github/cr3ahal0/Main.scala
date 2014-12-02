@@ -1,3 +1,4 @@
+import scala.io.StdIn
 
 import data.Buffer
 import data.Clipboard
@@ -8,6 +9,8 @@ import command.Cut
 import command.Paste
 import command.Erase
 import command.Write
+import command.Undo
+import command.Redo
 
 object Main {
 
@@ -23,9 +26,9 @@ object Main {
 	{
     var selection : Selection = new Selection(0)
 
-		while(choix != 12)
+		while(choix != 14)
     { 
-		  while(choix < 1  || choix > 12)
+		  while(choix < 1  || choix > 14 || !(choix.isInstanceOf[Int]))
 		  { 
         println()
         println()
@@ -42,61 +45,56 @@ object Main {
         println("[9] Tout sélectionner jusqu'au début du document")
         println("[10] Tout sélectionner jusqu'à la fin du document")
         println("[11] Visualiser le contenu de la sélection")
-  			println("[12] Quitter l'editeur")
+        println("[12] Retour en avant")
+        println("[13] Retour en arriere")
+  			println("[14] Quitter l'editeur")
   			println("Choix : ")
   			choix = readInt()
 		  }
 
 		  var string : String = ""
-		  var position : Int = 0
-      var positionDebut : Int = 0
-      var positionFin : Int = 0
+      var position : Int = 0
+      
 		  choix match
 		  {
-
-			
-				/*A changer : faire tout passer par les commandes*/
+        
+			  
   			case 1 => 
   			print("Entrez une lettre ou phrase à ajouter au buffer : ")
-  			string = readLine()
+  			string = StdIn.readLine
         var write : Write = new Write(buffer, string)
-  			buffer.write(string)
+        write.execute
   			println(buffer.getText)
         choix = 0
   			
   			
   			case 2 => println("Donnez la position du caractere à effacer")
-  			position = readInt
-  			var erase : Erase = new Erase(buffer, position)
+  			position = StdIn.readInt
+        buffer.setCursorPosition(position)
+  			var erase : Erase = new Erase(buffer)
   			erase.execute
         
         choix = 0
   
-        case 3 => println("Position du curseur debut :")
-        positionDebut = readInt
-        println("Position du curseur fin :")        
-        positionFin = readInt
-        var copy : Copy = new Copy(buffer, positionDebut, positionFin)
+        case 3 => 
+        var copy : Copy = new Copy(buffer, selection)
         copy.execute()
         choix = 0
         
-        case 4 => println("Position du curseur debut :")
-        positionDebut = readInt
-        println("Position du curseur fin :")        
-        positionFin = readInt
-        var cut : Cut = new Cut(buffer, positionDebut, positionFin)
+        case 4 => 
+        var cut : Cut = new Cut(buffer, selection)
         cut.execute()
         println(buffer.getText)
         choix = 0
           
-        case 5 => println("Position du curseur : ")
-        position = readInt
-        var paste : Paste = new Paste(buffer, position)
+        case 5 => 
+        position = StdIn.readInt
+        var paste : Paste = new Paste(buffer)
         paste.execute()
         choix = 0
         
         case 6 => println("Position du curseur : ")
-        position = readInt
+        position = StdIn.readInt
         selection.setStartingPosition(position)
         choix = 0
         
@@ -115,7 +113,17 @@ object Main {
         case 11 => println("Contenu de la sélection : "+ selection.getText)
         choix = 0
         
-  			case 12 => println("***************** FIN DU PROGRAMME! *****************")
+        case 12 => val redo : Redo = new Redo(buffer)
+        redo.execute
+        println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
+        choix = 0
+        
+        case 13 => val undo : Undo = new Undo(buffer)
+        undo.execute
+        println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
+        choix = 0
+        
+  			case 14 => println("***************** FIN DU PROGRAMME! *****************")
 
 
 
