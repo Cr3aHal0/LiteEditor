@@ -35,7 +35,7 @@ object Main {
   			println("Bienvenue dans le projet scala LiteEditor")
   			println("Veuillez choisir une option du menu")
   			println("[1] Ajouter une lettre au buffer")
-  			println("[2] Supprimer une lettre du buffer")
+  			println("[2] Supprimer une lettre du buffer (supprime par défaut le dernier caractere du mot)")
   			println("[3] Copier une partie du buffer")
   			println("[4] Couper une partie du buffer")
   			println("[5] Coller le contenu du presse papier")
@@ -49,7 +49,7 @@ object Main {
         println("[13] Retour en arriere")
   			println("[14] Quitter l'editeur")
   			println("Choix : ")
-  			choix = readInt()
+  			choix = StdIn.readInt()
 		  }
 
 		  var string : String = ""
@@ -62,16 +62,15 @@ object Main {
   			case 1 => 
   			print("Entrez une lettre ou phrase à ajouter au buffer : ")
   			string = StdIn.readLine
-        var write : Write = new Write(buffer, string)
+        var write : Write = new Write(buffer, string, buffer.getCursorPosition)
         write.execute
   			println(buffer.getText)
         choix = 0
   			
   			
-  			case 2 => println("Donnez la position du caractere à effacer")
-  			position = StdIn.readInt
-        buffer.setCursorPosition(position)
-  			var erase : Erase = new Erase(buffer)
+  			case 2 =>
+  			var erase : Erase = new Erase(buffer, buffer.getCursorPosition)
+        println(buffer.getCursorPosition)
   			erase.execute
         
         choix = 0
@@ -95,6 +94,7 @@ object Main {
         
         case 6 => println("Position du curseur : ")
         position = StdIn.readInt
+        buffer.setCursorPosition(position)
         selection.setStartingPosition(position)
         choix = 0
         
