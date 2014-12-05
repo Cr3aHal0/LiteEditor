@@ -33,8 +33,9 @@ class Erase(buffer: Buffer, cursorPosition : Int) extends Command
          //On deplace le curseur a la position -1 car il y a eu suppression de caracteres
          buffer.setCursorPosition(cursorPosition-1)
          println(buffer.getText)    
+         BufferHistory.addBuffer(buffer)
     }
    
-    BufferHistory.addBuffer(buffer)
+    
 	}
 }
