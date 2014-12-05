@@ -74,24 +74,20 @@ object Main {
   			string = readLine
         var write : Write = new Write(buffer, string, buffer.getCursorPosition)
         write.execute
-        choix = "0"
   			
   			
   			case "2" =>
   			var erase : Erase = new Erase(buffer, buffer.getCursorPosition)
         println(buffer.getCursorPosition)
   			erase.execute
-        choix = "0"
         
         case "3" => 
         var copy : Copy = new Copy(buffer, selection)
         copy.execute()
-        choix = "0"
         
         case "4" => 
         var cut : Cut = new Cut(buffer, selection)
         cut.execute()
-        choix = "0"
           
         case "5" => 
         position = readLine
@@ -104,7 +100,6 @@ object Main {
           var paste : Paste = new Paste(buffer)
           paste.execute()
         }
-        choix = "0"
         
         
         case "6" => println("Position du curseur : ")
@@ -120,32 +115,24 @@ object Main {
           buffer.printBuffer()
         }
         
-        choix = "0"
         
         case "7" => selection.expandRight(buffer.getText)
-        choix = "0"
         
         case "8" => selection.expandLeft(buffer.getText)
-        choix = "0"
         
         case "9" => selection.expandLeftCorner(buffer.getText)
-        choix = "0"
         
         case "10" => selection.expandRightCorner(buffer.getText)
-        choix = "0"
         
         case "11" => println("Contenu de la sélection : "+ selection.getText)
-        choix = "0"
         
         case "12" => val redo : Redo = new Redo(buffer)
         redo.execute
         println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
-        choix = "0"
         
         case "13" => val undo : Undo = new Undo(buffer)
         undo.execute
         println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
-        choix = "0"
         
         case "14" => 
         println("Nom de la macro :")
@@ -196,6 +183,8 @@ object Main {
   			case "21" => println("***************** FIN DU PROGRAMME! *****************")
 
 		  }
+      if(!choix.equals("21"))
+        choix = "0"
 	  }
   } 
 	
