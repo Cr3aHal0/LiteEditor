@@ -1,4 +1,3 @@
-import scala.io.StdIn
 
 import data.Buffer
 import data.Clipboard
@@ -49,7 +48,7 @@ object Main {
         println("[13] Retour en arriere")
   			println("[14] Quitter l'editeur")
   			println("Choix : ")
-  			choix = StdIn.readInt()
+  			choix = readInt()
 		  }
 
 		  var string : String = ""
@@ -61,10 +60,9 @@ object Main {
 			  
   			case 1 => 
   			print("Entrez une lettre ou phrase à ajouter au buffer : ")
-  			string = StdIn.readLine
+  			string = readLine
         var write : Write = new Write(buffer, string, buffer.getCursorPosition)
         write.execute
-  			println(buffer.getText)
         choix = 0
   			
   			
@@ -83,17 +81,16 @@ object Main {
         case 4 => 
         var cut : Cut = new Cut(buffer, selection)
         cut.execute()
-        println(buffer.getText)
         choix = 0
           
         case 5 => 
-        position = StdIn.readInt
+        position = readInt
         var paste : Paste = new Paste(buffer)
         paste.execute()
         choix = 0
         
         case 6 => println("Position du curseur : ")
-        position = StdIn.readInt
+        position = readInt
         buffer.setCursorPosition(position)
         selection.setStartingPosition(position)
         choix = 0
