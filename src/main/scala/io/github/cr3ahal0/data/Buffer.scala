@@ -7,9 +7,6 @@ class Buffer {
   private val history = BufferHistory
   private val cursor = new Cursor(0)
   
-  
-  
-  
   def getText = text
   def getLength = text.length()
   def getCursorPosition = cursor.getPosition
@@ -19,6 +16,15 @@ class Buffer {
     this.text = text
   }
 
+  def setBufferWidth(width : Integer) 
+  {
+    Buffer.setWidth(width)
+  }
+  
+  def getBufferWidth() : Integer = {
+    return Buffer.getWidth()  
+  }
+  
   def setCursorPosition(position : Int)
   {
     cursor.setPosition(position)
@@ -66,3 +72,12 @@ class Buffer {
   
 }
 
+object Buffer {
+    private var WIDTH = 100;
+    def setWidth(width : Integer) {
+      WIDTH = width
+    }
+    def getWidth() : Integer = {
+      return WIDTH
+    }
+}
