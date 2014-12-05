@@ -27,7 +27,7 @@ class Buffer {
   def addString(string: String) 
   {
     text = text.substring(0, cursor.getPosition)+string+text.substring(cursor.getPosition, text.length());
-    cursor.movePosition(string.length());
+    cursor.movePosition(string.length(), this);
   }
   
   //Add a string to the buffer at a position
@@ -56,6 +56,12 @@ class Buffer {
   {
     history.getNextState(this)
     return this
+  }
+  
+  
+  def printBuffer()
+  {
+    println(cursor.setCursorAt(getCursorPosition, this))
   }
   
 }
