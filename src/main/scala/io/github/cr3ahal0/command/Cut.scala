@@ -15,7 +15,7 @@ class Cut(buffer: Buffer, selection : Selection) extends Command
     //The buffer become a new buffer without the selection which we have cut
     buffer.setText(buffer.getText.substring(0, selection.getStartingPosition)+buffer.getText.substring(selection.getCurrentPosition, buffer.getLength))    
     BufferHistory.addBuffer(buffer)
-    println("New buffer : "+buffer.getText)
+    printBuffer(buffer)
     println("Content of clipboard : "+Clipboard.getContent)
   }
   

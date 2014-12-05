@@ -9,6 +9,7 @@ class Redo(buffer: Buffer) extends Command
 	override def execute
 	{
 		buffer.getNextState
+    printBuffer(buffer)
 	}
 
 

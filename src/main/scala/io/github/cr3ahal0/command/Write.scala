@@ -11,8 +11,8 @@ class Write(buffer: Buffer, string: String, cursorPosition : Int) extends Comman
   
   override def execute(){
     buffer.addString(string)
-    println(buffer.getText)
     BufferHistory.addBuffer(buffer)
+    printBuffer(buffer)
   }
   
   
