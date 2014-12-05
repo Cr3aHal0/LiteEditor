@@ -3,11 +3,15 @@ import data.Buffer
 import data.BufferHistory
 import data.Cursor
 
-class Write(buffer: Buffer, string: String) extends Command {
+//Defaut : ecrit le string a la fin du buffer
+class Write(buffer: Buffer, string: String, cursorPosition : Int) extends Command {
  
+  
+  //Besoin d'ecrire le string a la position du curseur
+  
   override def execute(){
     buffer.addString(string)
-    buffer.setCursorPosition(buffer.getLength)
+    println(buffer.getText)
     BufferHistory.addBuffer(buffer)
   }
   
