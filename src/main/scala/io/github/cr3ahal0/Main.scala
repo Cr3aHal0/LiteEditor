@@ -2,7 +2,6 @@
 import data.Buffer
 import data.Clipboard
 import data.Selection
-
 import command.Copy
 import command.Cut
 import command.Paste
@@ -10,24 +9,24 @@ import command.Erase
 import command.Write
 import command.Undo
 import command.Redo
+import scala.util.matching.Regex
 
 object Main {
 
 
 	var buffer : Buffer = new Buffer
-  var choix : Int = 0
+  var choix : String = "0"
   
-
-	/*Tant que l'utilisateur ne quitte pas le menu (6) il reste dedans)*/
-
 
 	def menu()
 	{
     var selection : Selection = new Selection(0)
+    var reg : Regex = new Regex("(([^0-9+]))")
 
-		while(choix != 14)
+		while(choix.toInt != 14)
     { 
-		  while(choix < 1  || choix > 14 || !(choix.isInstanceOf[Int]))
+      
+		  while((reg findAllIn choix).toList.size > 0 || choix.toInt < 1  || choix.toInt > 14 )
 		  { 
         println()
         println()
@@ -48,79 +47,97 @@ object Main {
         println("[13] Retour en arriere")
   			println("[14] Quitter l'editeur")
   			println("Choix : ")
-  			choix = readInt()
-		  }
+        choix = readLine()
+      }
 
+      
+      
 		  var string : String = ""
-      var position : Int = 0
+      var position : String = ""
       
 		  choix match
 		  {
         
 			  
-  			case 1 => 
+  			case "1" => 
   			print("Entrez une lettre ou phrase à ajouter au buffer : ")
   			string = readLine
         var write : Write = new Write(buffer, string, buffer.getCursorPosition)
         write.execute
-        choix = 0
+        choix = "0"
   			
   			
-  			case 2 =>
+  			case "2" =>
   			var erase : Erase = new Erase(buffer, buffer.getCursorPosition)
         println(buffer.getCursorPosition)
   			erase.execute
+        choix = "0"
         
-        choix = 0
-  
-        case 3 => 
+        case "3" => 
         var copy : Copy = new Copy(buffer, selection)
         copy.execute()
-        choix = 0
+        choix = "0"
         
-        case 4 => 
+        case "4" => 
         var cut : Cut = new Cut(buffer, selection)
         cut.execute()
-        choix = 0
+        choix = "0"
           
-        case 5 => 
-        position = readInt
-        var paste : Paste = new Paste(buffer)
-        paste.execute()
-        choix = 0
+        case "5" => 
+        position = readLine
+        if(((reg findAllIn position).toList.size > 0))
+        {
+          println("ERREUR DE FORMAT")
+        }
+        else
+        {
+          var paste : Paste = new Paste(buffer)
+          paste.execute()
+        }
+        choix = "0"
         
-        case 6 => println("Position du curseur : ")
-        position = readInt
-        buffer.setCursorPosition(position)
-        selection.setStartingPosition(position)
-        choix = 0
         
-        case 7 => selection.expandRight(buffer.getText)
-        choix = 0
+        case "6" => println("Position du curseur : ")
+        position = readLine
+        if((reg findAllIn position).toList.size > 0)
+        {
+          println("ERREUR DE FORMAT")
+        }
+        else 
+        {
+          buffer.setCursorPosition(position.toInt)
+          selection.setStartingPosition(position.toInt)
+          buffer.printBuffer()
+        }
         
-        case 8 => selection.expandLeft(buffer.getText)
-        choix = 0
+        choix = "0"
         
-        case 9 => selection.expandLeftCorner(buffer.getText)
-        choix = 0
+        case "7" => selection.expandRight(buffer.getText)
+        choix = "0"
         
-        case 10 => selection.expandRightCorner(buffer.getText)
-        choix = 0
+        case "8" => selection.expandLeft(buffer.getText)
+        choix = "0"
         
-        case 11 => println("Contenu de la sélection : "+ selection.getText)
-        choix = 0
+        case "9" => selection.expandLeftCorner(buffer.getText)
+        choix = "0"
         
-        case 12 => val redo : Redo = new Redo(buffer)
+        case "10" => selection.expandRightCorner(buffer.getText)
+        choix = "0"
+        
+        case "11" => println("Contenu de la sélection : "+ selection.getText)
+        choix = "0"
+        
+        case "12" => val redo : Redo = new Redo(buffer)
         redo.execute
         println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
-        choix = 0
+        choix = "0"
         
-        case 13 => val undo : Undo = new Undo(buffer)
+        case "13" => val undo : Undo = new Undo(buffer)
         undo.execute
         println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
-        choix = 0
+        choix = "0"
         
-  			case 14 => println("***************** FIN DU PROGRAMME! *****************")
+  			case "14" => println("***************** FIN DU PROGRAMME! *****************")
 
 
 
