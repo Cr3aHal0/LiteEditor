@@ -14,12 +14,30 @@ class Cursor (pos:Int){
     position = pos;
   }
   
-  def movePosition(pos : Int) = 
+  def movePosition(pos : Int, buffer: Buffer) = 
   {
-    position += pos
-    /*
-     * if(pos > buffer.getLength)
-     *  position = buffer.getLength)
-     */
+    
+     if(pos > buffer.getLength)
+     {
+       position = buffer.getLength
+     }
+     else
+     {
+       position += pos
+     }
+    
+  }
+  
+  
+  def setCursorAt(pos: Int, buffer: Buffer) : String = 
+  {
+    if(buffer.getLength == 0){
+      return "|"
+    }
+    else
+    {
+      return buffer.getText.substring(0, pos)+"|"+buffer.getText.substring(pos, buffer.getLength)
+    }  
+    
   }
 }
