@@ -27,7 +27,7 @@ class Buffer {
   
   def setCursorPosition(position : Int)
   {
-    cursor.setPosition(position)
+    cursor.setPosition(position, this)
   }
   
   def addString(string: String) 

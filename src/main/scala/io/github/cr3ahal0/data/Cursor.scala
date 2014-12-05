@@ -9,15 +9,21 @@ class Cursor (pos:Int){
     return position;
   }
   
-  def setPosition(pos : Int) =
+  def setPosition(pos : Int, buffer: Buffer) =
   {
-    position = pos;
+    if(pos > buffer.getLength)
+    {
+      position = buffer.getLength
+    }
+    else {
+      position = pos;
+    }
   }
   
   def movePosition(pos : Int, buffer: Buffer) = 
   {
     
-     if(pos > buffer.getLength)
+     if(pos+position > buffer.getLength)
      {
        position = buffer.getLength
      }
