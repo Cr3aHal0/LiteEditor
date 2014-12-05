@@ -17,5 +17,9 @@ class Cursor (pos:Int){
   def movePosition(pos : Int) = 
   {
     position += pos
+    /*
+     * if(pos > buffer.getLength)
+     *  position = buffer.getLength)
+     */
   }
 }
