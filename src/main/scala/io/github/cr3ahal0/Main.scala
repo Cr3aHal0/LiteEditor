@@ -15,10 +15,9 @@ import scala.util.matching.Regex
 
 object Main {
 
-  var listeningMacro : Macro = null
 	var buffer : Buffer = new Buffer
   var choix : String = "0"
-  
+  var runningMacro : String = null
 
 	def menu()
 	{
@@ -51,9 +50,8 @@ object Main {
         println("[15] Commencer l'enregistrer une macro")
         println("[16] Arrêter l'enregistrement d'une macro")
         println("[17] Exécuter une macro")
-        println("[18] Fermer une macro")
-        println("[19] Supprimer une macro")
-        println("[20] Lister les macros")
+        println("[18] Supprimer une macro")
+        println("[19] Lister les macros")
         //
   			println("[21] Quitter l'editeur")
   			println("Choix : ")
@@ -73,22 +71,21 @@ object Main {
   			print("Entrez une lettre ou phrase à ajouter au buffer : ")
   			string = readLine
         var write : Write = new Write(buffer, string, buffer.getCursorPosition)
-        write.execute
+        MacrosManager.visit(write)
   			
   			
   			case "2" =>
   			var erase : Erase = new Erase(buffer, buffer.getCursorPosition)
-        println(buffer.getCursorPosition)
-  			erase.execute
+        MacrosManager.visit(erase)
         
         case "3" => 
         var copy : Copy = new Copy(buffer, selection)
-        copy.execute()
+        MacrosManager.visit(copy)
         
         case "4" => 
         var cut : Cut = new Cut(buffer, selection)
-        cut.execute()
-          
+        MacrosManager.visit(cut)  
+        
         case "5" => 
         position = readLine
         if(((reg findAllIn position).toList.size > 0))
@@ -98,7 +95,7 @@ object Main {
         else
         {
           var paste : Paste = new Paste(buffer)
-          paste.execute()
+          MacrosManager.visit(paste)
         }
         
         
@@ -112,7 +109,6 @@ object Main {
         {
           buffer.setCursorPosition(position.toInt)
           selection.setStartingPosition(position.toInt)
-          buffer.printBuffer()
         }
         
         
@@ -127,46 +123,50 @@ object Main {
         case "11" => println("Contenu de la sélection : "+ selection.getText)
         
         case "12" => val redo : Redo = new Redo(buffer)
-        redo.execute
+        MacrosManager.visit(redo)
         println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
         
         case "13" => val undo : Undo = new Undo(buffer)
-        undo.execute
+        MacrosManager.visit(undo)
         println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
         
         case "14" => 
         println("Nom de la macro :")
         string = readLine
-        var mac : Macro = new Macro()
+        var mac : Macro = new Macro(string)
         MacrosManager.addMacro(string, mac)
         
         case "15" =>
         println("Nom de la macro à charger : ")
         string = readLine
-        listeningMacro = MacrosManager.getMacro(string)
+        var listeningMacro = MacrosManager.getMacro(string)
         if (listeningMacro == null) {
           println("/!\\ Macro inexistante /!\\")
         }
         else
         {
+          runningMacro = string
+          MacrosManager.startMacroRecording(string)
           println("Enregistrement lancé")
         }
         
         case "16" =>
-        listeningMacro = null
-        println("Fin de l'enregistrement de la macro")
+        if (runningMacro != null) {
+          MacrosManager.stopMacroRecording(runningMacro)
+          runningMacro = ""
+          println("Fin de l'enregistrement de la macro")
+        }
         
         case "17" =>
-        if (listeningMacro != null) {
-          println("/!\\ Exécution de la macro /!\\")  
-          listeningMacro.execute()
+        println("Nom de la macro à exécuter : ")
+        string = readLine
+        var mac : Macro = MacrosManager.getMacro(string)
+        if (mac != null) { 
+            mac.execute()
+            println("/!\\ Exécution de la macro /!\\") 
         }
         
         case "18" =>
-          println("/!\\ Fermeture de la macro... /!\\")
-          listeningMacro = null
-          
-        case "19" =>
           println("Nom de la macro à supprimer :")
           string = readLine
           if (MacrosManager.getMacro(string) != null) {
@@ -176,10 +176,10 @@ object Main {
           {
             println("/!\\Macro non existante ! /!\\")
           }
-          
-        case "20" =>
+        
+        case "19" =>
           println("Liste des macros :")
-          
+          MacrosManager.print()
   			case "21" => println("***************** FIN DU PROGRAMME! *****************")
 
 		  }
