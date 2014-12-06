@@ -8,7 +8,7 @@ import data.Buffer
 class TestBuffer extends FlatSpec{
 
   
-  "Buffer creation" should "be as expected" in {
+  "Buffer content" should "be as expected" in {
     
     val buffer : Buffer = new Buffer
     val bufferTest : Buffer = new Buffer
