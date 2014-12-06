@@ -124,11 +124,11 @@ object Main {
         
         case "12" => val redo : Redo = new Redo(buffer)
         MacrosManager.visit(redo)
-        println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
+        //println("Contenu du buffer à l'instant t+1 : "+buffer.getText)
         
         case "13" => val undo : Undo = new Undo(buffer)
         MacrosManager.visit(undo)
-        println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
+        //println("Contenu du buffer à l'instant t-1 : "+buffer.getText)
         
         case "14" => 
         println("Nom de la macro :")
