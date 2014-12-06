@@ -74,8 +74,16 @@ class Cursor (pos:Int){
       if (position > buffer.getLength) {
         position = buffer.getLength
       }
+      
+      if (position <= 0)
+      {
+       position = 0 
+      } 
       return buffer.getText.substring(0, position)+"|"+buffer.getText.substring(position, buffer.getLength)
-    }  
+    }
+       
+       
+    
     
   }
 }
