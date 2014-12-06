@@ -9,13 +9,21 @@ object BufferHistory
   
   listBufferState.add("")
   
-  //Add an element to the beginning of the list
+  /**
+   * Add an element to the beginning of the list
+   * @param b The buffer state we have to record
+   */
   def addBuffer(b: Buffer)
   {
     listBufferState.add(b.getText)
     currentIndex = currentIndex + 1
   } 
   
+  /**
+   * Retrieve the previous state of a buffer
+   * 
+   * @param buffer the targeted buffer to restore
+   */
   def getPreviousState(buffer : Buffer) {
     if (currentIndex > 0) {
       buffer.setText(listBufferState.get(currentIndex - 1))
@@ -23,6 +31,11 @@ object BufferHistory
     }
   }
   
+  /**
+   * Retrieve the next state of a buffer
+   * 
+   * @param buffer the targeted buffer
+   */
   def getNextState(buffer : Buffer){
     if (currentIndex < listBufferState.size() - 1) {
       buffer.setText(listBufferState.get(currentIndex + 1))
@@ -30,6 +43,12 @@ object BufferHistory
     }    
   }
   
+  /**
+   * Restore a buffer at a specific time
+   * 
+   * @param buffer the current buffer we want to restore
+   * @param state the position of the remaining state
+   */
   def restoreBuffer(buffer : Buffer, state : Integer) {
     var flag = 0
     if (state < 0) {

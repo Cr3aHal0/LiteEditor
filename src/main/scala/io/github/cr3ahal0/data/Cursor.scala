@@ -2,13 +2,27 @@ package data
 
 class Cursor (pos:Int){
   
+  /**
+   * The current position of the cursor
+   */
   private var position : Int = pos;
   
+  /**
+   * Return the current position of the cursor
+   * 
+   * @return position the current cursor position
+   */
   def getPosition : Int = 
   {
     return position;
   }
   
+  /**
+   * Define the new position of the cursor
+   * 
+   * @param pos the new position
+   * @param buffer the current Buffer 
+   */
   def setPosition(pos : Int, buffer: Buffer) =
   {
     if(pos > buffer.getLength)
@@ -20,6 +34,12 @@ class Cursor (pos:Int){
     }
   }
   
+  /**
+   * Move the cursor from several cols
+   * 
+   * @param pos the amount of cols we want to jump
+   * @param buffer the current buffer
+   */
   def movePosition(pos : Int, buffer: Buffer) = 
   {
     
@@ -34,7 +54,15 @@ class Cursor (pos:Int){
     
   }
   
-  
+  /**
+   * Define the new cursor position
+   * 
+   * @deprecated for test purpose ONLY !
+   * @see for test purpose ONLY !
+   * 
+   * @param pos the new position of the cursor
+   * @param buffer the current buffer
+   */
   def setCursorAt(pos: Int, buffer: Buffer) : String = 
   {
     var position : Int = pos
