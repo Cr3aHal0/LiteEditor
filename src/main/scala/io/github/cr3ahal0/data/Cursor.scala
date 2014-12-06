@@ -37,12 +37,16 @@ class Cursor (pos:Int){
   
   def setCursorAt(pos: Int, buffer: Buffer) : String = 
   {
+    var position : Int = pos
     if(buffer.getLength == 0){
       return "|"
     }
     else
     {
-      return buffer.getText.substring(0, pos)+"|"+buffer.getText.substring(pos, buffer.getLength)
+      if (position > buffer.getLength) {
+        position = buffer.getLength
+      }
+      return buffer.getText.substring(0, position)+"|"+buffer.getText.substring(position, buffer.getLength)
     }  
     
   }
