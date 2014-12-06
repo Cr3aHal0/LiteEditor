@@ -7,6 +7,7 @@ object BufferHistory
   private var listBufferState : ArrayList[String] = new ArrayList
   private var currentIndex : Integer = 0;
   
+  listBufferState.add("")
   
   //Add an element to the beginning of the list
   def addBuffer(b: Buffer)
