@@ -8,22 +8,27 @@ import org.scalatest.FlatSpec
 class TestCursor extends FlatSpec{
 
 
-	"Cursor position" should "be as expected" in {
+	val buffer : Buffer = new Buffer
+	buffer.setText("buffer")
+	val cursor : Cursor = new Cursor(0)
 
-		val buffer : Buffer = new Buffer
-    buffer.setText("buffer")
-    val cursor : Cursor = new Cursor(0)
-    
-    assert(cursor.setCursorAt(1300, buffer).equals("buffer|"))
-    assert(cursor.setCursorAt(1300, buffer).equals("buffer|"))
+	/*Si on rentre un string dans la position du curseur il va y avoir un erreur
+  car la verification d'argument se fait dans le main*/
+
+
+  "Move the cursor at the position 1300" should "move the cursor to the ending of the text" in {
+	  assert(cursor.setCursorAt(1300, buffer).equals("buffer|"))
+  }
+  
+  "Move the cursor at the position -200" should "move the cursor to the beginning of the text" in {
     assert(cursor.setCursorAt(-200, buffer).equals("|buffer"))
-    /*Si on rentre un string dans la position du curseur il va y avoir un erreur
-    car la verification d'argument se fait dans le main*/
-
-    
+  }  
 
 
-	}
+
+
+
+}
 
 
 

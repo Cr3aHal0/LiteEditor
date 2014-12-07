@@ -8,23 +8,26 @@ import data.Buffer
 class TestBuffer extends FlatSpec{
 
   
-  "Buffer content" should "be as expected" in {
-    
+  "Buffer creation" should "be empty and have length = 0" in {
     val buffer : Buffer = new Buffer
-    val bufferTest : Buffer = new Buffer
-    bufferTest.setText("toto")
+    assert(buffer.getText == "") 
+    assert(buffer.getLength == 0)
+    
+  }   
+   
+  
+  
+  "Buffer addString" should "move the cursor to the right location" in {
+    val buffer : Buffer = new Buffer
     
     buffer.addString(" test ")
     assert(buffer.getLength == 6)
     assert(buffer.getCursorPosition == 6)
-    buffer.addString("toto")
-    //assert(buffer.getPreviousState.equals(bufferTest))
-    
+  }  
    
   
     
     
-  }
-  
   
 }
+  
