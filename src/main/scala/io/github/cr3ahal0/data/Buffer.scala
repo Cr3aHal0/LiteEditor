@@ -1,12 +1,14 @@
 package data
 
-class Buffer {
+class Buffer (aName : String) {
 	
+  private var name : String = aName;
   private var text : String = ""
   private var cursorPosition : Int = 0
   private val history = BufferHistory
   private val cursor = new Cursor(0)
   
+  def getName = name
   def getText = text
   def getLength = text.length()
   def getCursorPosition = cursor.getPosition
@@ -41,6 +43,13 @@ class Buffer {
   }
   
   /**
+   * 
+   */
+  def checkCursorPosition() {
+	  cursor.setPosition(cursor.getPosition, this) 
+  }
+  
+  /**
    * Set the cursor position
    * 
    * @param position the position in the file you want to set it
@@ -63,6 +72,7 @@ class Buffer {
    */
   def addString(string: String) 
   {
+    checkCursorPosition()
     text = text.substring(0, cursor.getPosition)+string+text.substring(cursor.getPosition, text.length());
     cursor.movePosition(string.length(), this);
   }

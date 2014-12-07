@@ -12,10 +12,13 @@ import command.Redo
 import command.Macro
 import command.MacrosManager
 import scala.util.matching.Regex
+import data.BufferHistory
 
 object Main {
 
-	var buffer : Buffer = new Buffer
+  //Retrieve the instance of buffer named "test"
+	var buffer : Buffer = BufferHistory.getBuffer("test")
+  
   var choix : String = "0"
   var runningMacro : String = null
 
@@ -32,7 +35,7 @@ object Main {
         println()
   			println("Bienvenue dans le projet scala LiteEditor")
   			println("Veuillez choisir une option du menu")
-  			println("[1] Ajouter une lettre au buffer")
+  			println("[1] Ajouter une chaîne de caractères au buffer")
   			println("[2] Supprimer une lettre du buffer (supprime par défaut le dernier caractere du mot)")
   			println("[3] Copier une partie du buffer")
   			println("[4] Couper une partie du buffer")
