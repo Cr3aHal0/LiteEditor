@@ -1,6 +1,7 @@
 package io.github.cr3ahal0.data
 import data.Cursor
 import data.Buffer
+import data.BufferHistory
 import org.scalatest.FlatSpec
 
 
@@ -8,7 +9,7 @@ import org.scalatest.FlatSpec
 class TestCursor extends FlatSpec{
 
 
-	val buffer : Buffer = new Buffer
+	val buffer : Buffer = BufferHistory.getBuffer("test")
 	buffer.setText("buffer")
 	val cursor : Cursor = new Cursor(0)
 
