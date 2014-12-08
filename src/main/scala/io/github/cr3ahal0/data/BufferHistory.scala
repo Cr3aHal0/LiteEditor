@@ -7,7 +7,6 @@ object BufferHistory
 
   private var listBuffers : ArrayList[Buffer] = new ArrayList
   private var mapBufferState : HashMap[Buffer, ArrayList[String]] = new HashMap
-  private var listBufferState : ArrayList[String] = new ArrayList
   private var mapBufferIndexes : HashMap[Buffer, Integer] = new HashMap
   
   
@@ -99,8 +98,8 @@ object BufferHistory
       if (state < 0) {
         flag = 0
       }
-      else if(state > listBufferState.size() - 1) {
-        flag = listBufferState.size() - 1
+      else if(state > mapBufferState.get(buffer).size() - 1) {
+        flag = mapBufferState.get(buffer).size() - 1
       }
       else
       {
